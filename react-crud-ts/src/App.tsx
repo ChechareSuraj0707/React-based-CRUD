@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import LogoHeader from "./components/LogoHeader";
 import UserForm from "./components/UserForm";
 import UserList from "./components/UserList";
 
@@ -21,14 +21,21 @@ export default function App() {
   }, []);
 
   const handleSubmit = async (data: User) => {
-    if (editUserData) {
-      await editUser(editUserData.id!, data);
-      setEditUserData(null);
-    } else {
-      await addUser(data);
-    }
+    try {
+      if (editUserData) {
+        await editUser(editUserData.id!, data);
+      } else {
+        await addUser(data);
+      }
 
-    loadUsers();
+      // Clear edit state immediately after successful save
+      setEditUserData(null);
+
+      // Reload users from backend
+      await loadUsers();
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
   };
 
   const handleDelete = async (id: number) => {
@@ -38,6 +45,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+      {/* Logo Header */}
+      <LogoHeader />
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-2 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -50,12 +59,13 @@ export default function App() {
 
         <UserForm
           onSubmit={handleSubmit}
+          onCancel={() => setEditUserData(null)}
           defaultValues={editUserData || undefined}
         />
 
         <UserList
           users={users}
-          onEdit={setEditUserData}
+          onEdit={(user) => setEditUserData(user)}
           onDelete={handleDelete}
         />
       </div>
