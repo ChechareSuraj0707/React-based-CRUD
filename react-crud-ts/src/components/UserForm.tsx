@@ -34,7 +34,13 @@ export default function UserForm({ onSubmit, onCancel, defaultValues }: Props) {
 
     // Reset form and hide success message after 2 seconds
     setTimeout(() => {
-      reset(); // Clear all form fields
+      // Reset to empty values (not defaultValues)
+      reset({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+      });
       setSuccessMessage(false);
     }, 2000);
   };
