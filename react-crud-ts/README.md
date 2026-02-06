@@ -1,73 +1,152 @@
-# React + TypeScript + Vite
+# React-based CRUD Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This is a React-based CRUD (Create, Read, Update, Delete) application for managing user records.  
+The application is designed with scalability and extensibility in mind, allowing new fields to be added with minimal code changes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live Demo: https://react-based-crud.vercel.app  
+GitHub Repository: https://github.com/ChechareSuraj0707/React-based-CRUD
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Axios
+- React Hook Form
+- JSON Server (Mock API)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Before running the project, make sure you have:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Node.js (v18 or higher)
+- npm
+- Git (optional)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Clone the repository:
+
+```bash
+git clone https://github.com/ChechareSuraj0707/React-based-CRUD.git
+cd React-based-CRUD
+
+
+# Install dependencies:
+npm install
+
+# Running the Application
+# Start the Mock API Server
+
+npm run server
+
+# This runs JSON Server at:
+http://localhost:3001
+
+
+# Start the Frontend Application
+# Open another terminal and run:
+npm run dev
+
+
+# This runs the app at:
+http://localhost:5173
+ (or the next available port)
+
+# API Setup (JSON Server)
+# This project uses json-server as a local mock backend.
+# The API data is stored in:
+db.json
+
+
+# Example content:
+
+{
+  "users": []
+}
+
+
+# JSON Server automatically creates REST APIs.
+# Available Endpoints:
+
+GET /users → Get all users
+
+GET /users/:id → Get single user
+
+POST /users → Create user
+
+PUT /users/:id → Update user
+
+DELETE /users/:id → Delete user
+
+# IDs are auto-generated.
+# Adding New Fields (Extensibility)
+# The form UI is generated using a configuration file.
+# To add a new field:
+Open:
+src/config/formConfig.ts
+Add a new field object inside the array:
+
+{
+  name: "dob",
+  label: "Date of Birth",
+  type: "date",
+  required: false
+}
+
+# Save the file and restart the app.
+# The form UI and validation will update automatically.
+# No component changes are required.
+
+
+Project Structure
+
+src/
+ ├ api/          → API service functions
+ ├ components/   → Reusable UI components
+ ├ config/       → Form configuration
+ ├ types/        → TypeScript interfaces
+ ├ App.tsx       → Main application logic
+ └ main.tsx      → Application entry point
+
+
+# Design Decisions
+
+Used TypeScript for better type safety and maintainability.
+Implemented configuration-driven form rendering for extensibility.
+Separated API logic from UI components.
+Used Tailwind CSS for responsive and clean UI.
+Used JSON Server for mock backend during development.
+
+# Validation
+
+All form fields are required.
+Email field is validated using regex pattern.
+Phone number accepts only numeric values.
+Validation is handled using React Hook Form.
+
+# Deployment
+The application is deployed on Vercel.
+Live URL:
+https://react-based-crud.vercel.app
+
+# Troubleshooting
+
+Make sure npm run server is running before using the app.
+If API requests fail, check the port in userApi.ts.
+Restart the dev server after configuration changes.
+Check browser console for errors if UI is not loading.
+
+
+# Author
+Suraj Chechare
 ```
